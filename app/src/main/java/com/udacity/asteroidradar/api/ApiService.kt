@@ -2,7 +2,9 @@ package com.udacity.asteroidradar.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants.BASE_URL
+import com.udacity.asteroidradar.domain.PictureOfDay
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -28,8 +30,18 @@ interface AsteroidApiService {
     ): String
 }
 
+interface PictureOfDayApiService {
+    @GET("planetary/apod")
+    suspend fun getPictureOfDay(
+        @Query("api_key") apiKey: String = "DEMO_KEY" //TODO
+    ): PictureOfDay
+}
+
 object AsteroidApi {
-    val AsteroidRetrofitService: AsteroidApiService by lazy {
+    val asteroidRetrofitService: AsteroidApiService by lazy {
         retrofit.create(AsteroidApiService::class.java)
+    }
+    val pictureOfDayRetrofitService: PictureOfDayApiService by lazy {
+        retrofit.create(PictureOfDayApiService::class.java)
     }
 }
