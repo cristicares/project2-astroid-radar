@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.R
@@ -28,13 +29,20 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModelAdapter = AsteroidListAdapter(AsteroidListAdapter.OnClickListener{
-            //viewModel.displayPropertyDetails(it)
+            viewModel.displayAsteroidDetails(it)
         })
 
         binding.asteroidRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
         }
+
+        viewModel.navigateToSelectedAsteroid.observe(viewLifecycleOwner, Observer { asteroid ->
+            if (asteroid != null){
+                this.findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
+                viewModel.displayAsteroidDetailsComplete()
+            }
+        })
 
         setHasOptionsMenu(true)
 
@@ -43,11 +51,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.asteroidList.observe(viewLifecycleOwner, Observer <List<Asteroid>> { asteroids ->
+        viewModel.asteroidList.observe(viewLifecycleOwner) { asteroids ->
             asteroids?.apply {
                 viewModelAdapter?.submitList(asteroids)
             }
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,6 +64,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.show_week_menu -> viewModel.updateAsteroidFilter(MenuOption.SHOW_WEEK)
+            R.id.show_today_menu -> viewModel.updateAsteroidFilter(MenuOption.SHOW_TODAY)
+            R.id.show_saved_menu -> viewModel.updateAsteroidFilter(MenuOption.SHOW_SAVED)
+            else -> viewModel.updateAsteroidFilter(MenuOption.SHOW_SAVED)
+        }
         return true
     }
 }

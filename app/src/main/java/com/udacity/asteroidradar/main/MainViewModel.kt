@@ -11,7 +11,7 @@ import com.udacity.asteroidradar.repository.PictureOfDayRepository
 import kotlinx.coroutines.launch
 
 enum class AsteroidApiStatus {LOADING, ERROR, DONE}
-enum class MenuOption { SHOW_TODAY, SHOW_NEXT_WEEK, SHOW_SAVED, SHOW_DEFAULT}
+enum class MenuOption { SHOW_WEEK, SHOW_TODAY, SHOW_SAVED}
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,14 +23,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val status: LiveData<AsteroidApiStatus>
         get() = _status
 
+    private val asteroidMenuOptions = MutableLiveData<MenuOption>()
+    val asteroidList = Transformations.switchMap(asteroidMenuOptions) { menuOption ->
+        asteroidRepository.getListAsteroids(menuOption)
+    }
+
     private val _navigateToSelectedAsteroid = MutableLiveData<Asteroid>()
     val navigateToSelectedAsteroid: LiveData<Asteroid>
         get() = _navigateToSelectedAsteroid
 
+    val pictureOfDay = pictureOfDayRepository.pictureOfDay
+
     init {
-        //getMarsRealEstateProperties(MarsApiFilter.SHOW_ALL)
         viewModelScope.launch {
             _status.value = AsteroidApiStatus.LOADING
+            asteroidMenuOptions.postValue(MenuOption.SHOW_WEEK)
             try {
                 pictureOfDayRepository.refreshPictureOfDay()
                 asteroidRepository.refreshAsteroids()
@@ -41,21 +48,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    val pictureOfDay = pictureOfDayRepository.pictureOfDay
-    val asteroidList = asteroidRepository.asteroids
-
-    /*
-    fun displayPropertyDetails(marsProperty: MarsProperty) {
-        _navigateToSelectedProperty.value = marsProperty
+    fun displayAsteroidDetails(asteroid: Asteroid) {
+        _navigateToSelectedAsteroid.value = asteroid
     }
 
-    fun displayPropertyDetailsComplete() {
-        _navigateToSelectedProperty.value = null
+    fun displayAsteroidDetailsComplete() {
+        _navigateToSelectedAsteroid.value = null
     }
 
-    fun updateFilter(filter: MarsApiFilter){
-        getMarsRealEstateProperties(filter)
-    }*/
+    fun updateAsteroidFilter(option: MenuOption) {
+        asteroidMenuOptions.postValue(option)
+    }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
