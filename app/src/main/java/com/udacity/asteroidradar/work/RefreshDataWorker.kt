@@ -1,6 +1,7 @@
 package com.udacity.asteroidradar.work
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.udacity.asteroidradar.database.getDatabase
@@ -21,8 +22,10 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
         val pictureOfDayRepository = PictureOfDayRepository(database)
 
         return try {
+            Log.i("worker", "Executing worker")
             asteroidRepository.refreshAsteroids()
             pictureOfDayRepository.refreshPictureOfDay()
+            asteroidRepository.deleteAsteroidsBeforeToday()
             Result.success()
         } catch (e: HttpException) {
             Result.retry()

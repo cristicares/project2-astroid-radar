@@ -2,11 +2,10 @@ package com.udacity.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.udacity.asteroidradar.api.*
+import com.udacity.asteroidradar.network.*
 import com.udacity.asteroidradar.database.AsteroidRadarDatabase
 import com.udacity.asteroidradar.database.asDomainModel
 import com.udacity.asteroidradar.domain.Asteroid
-import com.udacity.asteroidradar.main.MainViewModel
 import com.udacity.asteroidradar.main.MenuOption
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -43,6 +42,12 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
                 AsteroidApi.asteroidRetrofitService.getAsteroids(getToday(), getDayPlusWeek())
             val parseAsteroidJsonResult = parseAsteroidsJsonResult(JSONObject(asteroids))
             database.asteroidDao.insertAll(*parseAsteroidJsonResult.asDatabaseModel())
+        }
+    }
+
+    suspend fun deleteAsteroidsBeforeToday(){
+        withContext(Dispatchers.IO){
+            database.asteroidDao.deleteAsteroidBefore(getToday())
         }
     }
 }

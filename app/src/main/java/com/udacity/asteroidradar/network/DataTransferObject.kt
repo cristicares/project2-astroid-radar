@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.api
+package com.udacity.asteroidradar.network
 
 import com.udacity.asteroidradar.database.AsteroidEntity
 import com.udacity.asteroidradar.database.PictureEntity

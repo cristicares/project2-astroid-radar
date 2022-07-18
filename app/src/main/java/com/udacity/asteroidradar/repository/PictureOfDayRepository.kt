@@ -2,8 +2,8 @@ package com.udacity.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.udacity.asteroidradar.api.AsteroidApi
-import com.udacity.asteroidradar.api.asDatabaseModel
+import com.udacity.asteroidradar.network.AsteroidApi
+import com.udacity.asteroidradar.network.asDatabaseModel
 import com.udacity.asteroidradar.database.AsteroidRadarDatabase
 import com.udacity.asteroidradar.database.asDomainModel
 import com.udacity.asteroidradar.domain.PictureOfDay

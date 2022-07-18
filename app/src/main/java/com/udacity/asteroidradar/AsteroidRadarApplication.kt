@@ -29,7 +29,7 @@ class AsteroidRadarApplication : Application() {
             .setRequiresCharging(true)
             .apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    setRequiresDeviceIdle(true)
+                    setRequiresDeviceIdle(false)
                 }
             }.build()
 
@@ -37,9 +37,9 @@ class AsteroidRadarApplication : Application() {
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             RefreshDataWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.REPLACE,
             repeatingRequest
         )
     }
