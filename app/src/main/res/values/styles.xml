@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="textAppearanceHeadline6">@style/CustomHeadline6</item>
+        <item name="textAppearanceBody1">@style/CustomBody1</item>
     </style>
 
+    <style name="CustomHeadline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="CustomBody1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
 </resources>

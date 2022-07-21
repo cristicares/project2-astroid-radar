@@ -23,8 +23,7 @@
             android:layout_marginTop="@dimen/spacing_large"
             android:layout_marginBottom="@dimen/spacing_small"
             android:text="@{asteroid.codename}"
-            android:textColor="@android:color/white"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintBottom_toTopOf="@+id/approach_date_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +36,9 @@
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_large"
             android:text="@{asteroid.closeApproachDate}"
-            android:textColor="@android:color/white"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="#D3D3D3"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/codename_text" />
 
