@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/activity_main_image_of_the_day"
+                android:id="@+id/image_asteroid_hazardous"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
@@ -41,9 +41,8 @@
                 android:background="#55010613"
                 android:padding="@dimen/spacing_normal"
                 android:text="@{viewModel.pictureOfDay.title}"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textStyle="bold"/>
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView

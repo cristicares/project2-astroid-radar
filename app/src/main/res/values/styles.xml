@@ -13,9 +13,12 @@
 
     <style name="CustomHeadline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="CustomBody1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
     </style>
 </resources>

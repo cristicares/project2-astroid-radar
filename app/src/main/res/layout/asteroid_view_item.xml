@@ -36,9 +36,8 @@
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_large"
             android:text="@{asteroid.closeApproachDate}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="#D3D3D3"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/codename_text" />
 
