@@ -1,16 +1,18 @@
 package com.udacity.asteroidradar.main
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
-import com.udacity.asteroidradar.domain.Asteroid
+import kotlinx.android.synthetic.main.asteroid_view_item.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
@@ -72,4 +74,16 @@ class MainFragment : Fragment() {
         }
         return true
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val currentOrientation = resources.configuration.orientation
+
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            asteroid_recycler.layoutParams.height = 600
+        } else {
+            asteroid_recycler.layoutParams.height = 0
+        }
+    }
+
 }
