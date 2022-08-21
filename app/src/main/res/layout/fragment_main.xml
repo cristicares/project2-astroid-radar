@@ -22,7 +22,7 @@
         android:background="@color/app_background">
 
         <FrameLayout
-            android:id="@+id/activity_main_image_of_the_day_layout"
+            android:id="@+id/image_of_the_day_layout"
             android:layout_width="match_parent"
             android:layout_height="180sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,17 +30,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/image_asteroid_hazardous"
+                android:id="@+id/image_of_the_day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/picture_of_the_day"
+                android:contentDescription="@{@string/picture_of_the_day + `: ` + viewModel.pictureOfDay.title}"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.pictureOfDay.url}"
                 app:srcCompat="@drawable/placeholder_picture_of_day" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/image_of_the_day_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_main_image_of_the_day_layout"
+            app:layout_constraintTop_toBottomOf="@+id/image_of_the_day_layout"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/asteroid_view_item" />
 
