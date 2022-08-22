@@ -2,8 +2,9 @@ package com.udacity.asteroidradar.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.udacity.asteroidradar.util.Constants.BASE_URL
+import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.domain.PictureOfDay
+import com.udacity.asteroidradar.util.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -25,7 +26,7 @@ interface AsteroidApiService {
     suspend fun getAsteroids(
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String,
-        @Query("api_key") apiKey: String = "DEMO_KEY"
+        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
     ): String
 }
 
